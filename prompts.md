@@ -1,7 +1,5 @@
 # Prompts utilisés pour générer le projet
 
-Chaque fichier a été généré à partir d'un prompt clair. Voici les prompts exacts utilisés (français) :
-
 ## 1) Générer `index.html`
 "Génère une page HTML personnelle complète en français avec les sections suivantes : 'À propos', 'Compétences', 'Projets', 'Contact'. Inclure un carrousel de projets pouvant contenir des cartes avec attribut `data-category` pour filtrage, un ensemble de boutons de filtre (Tous, Web, IA, Mobile), un formulaire de contact simple avec `name`, `email` et `message`, un compteur de visites basé sur `localStorage`, un bouton pour basculer mode sombre/clair, et des classes `reveal` pour animations d'entrée. L'HTML doit lier `styles.css` et `script.js` et rester accessible (aria-labels)." 
 
