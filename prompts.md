@@ -4,7 +4,7 @@
 "Génère une page HTML personnelle complète en français avec les sections suivantes : 'À propos', 'Compétences', 'Projets', 'Contact'. Inclure un carrousel de projets pouvant contenir des cartes avec attribut `data-category` pour filtrage, un ensemble de boutons de filtre (Tous, Web, IA, Mobile), un formulaire de contact simple avec `name`, `email` et `message`, un compteur de visites basé sur `localStorage`, un bouton pour basculer mode sombre/clair, et des classes `reveal` pour animations d'entrée. L'HTML doit lier `styles.css` et `script.js` et rester accessible (aria-labels)." 
 
 ## 2) Générer `styles.css`
-"Crée une feuille de styles moderne et minimale : variables CSS pour thème clair/sombre, règles responsives, style pour le carrousel (track + cartes), styles pour filtres, boutons, formulaires, et animations d'entrée (`reveal` → `animate-in`). Priorise performance et simplicité, avec règles d'accessibilité (focus visible)."
+"Crée un fichier de styles moderne et minimale : variables CSS pour thème clair/sombre, règles responsives, style pour le carrousel (track + cartes), styles pour filtres, boutons, formulaires, et animations d'entrée (`reveal` → `animate-in`). Priorise performance et simplicité, avec règles d'accessibilité (focus visible)."
 
 ## 3) Générer `script.js`
 "Écris un script JavaScript autonome (vanilla) qui : gère le thème sombre/clair (stocké dans localStorage), incrémente/affiche un compteur de visites (localStorage), contrôle un carrousel simple (prev/next), applique le filtrage des projets par `data-category`, valide le formulaire en temps réel, sauvegarde les messages du formulaire dans `localStorage`, et déclenche des animations d'entrée via IntersectionObserver. Le script doit être compatible mobile et desktop." 
