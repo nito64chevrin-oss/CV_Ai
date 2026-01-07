@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Portfolio — Baptiste CHEVRIN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Baptiste Chevrin</a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="about.html" class="nav-link">À propos</a>
+        <a href="projects.html" class="nav-link">Projets</a>
+        <a href="cv_gamified.html" class="nav-link">CV gamifié</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <button id="themeToggle" aria-label="Basculer thème">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Bonjour, je suis <span class="accent">Baptiste Chevrin</span></h1>
+        <p class="lead">Développeur en devenir, je souhaite progresser en menant des projets ambitieux qui me challengent et nourrissent ma curiosité.</p>
+        <p class="hero-actions"><a class="btn" href="projects.html">Voir mes projets</a> <a class="btn secondary" href="cv_gamified.html">CV gamifié</a></p>
+      </div>
+    </section>
+
+    <section class="container panels">
+      <div class="panel reveal">
+        <h2>Introduction rapide</h2>
+        <p>Création d'interfaces accessibles, optimisées et esthétiques. Parcourez les pages pour en savoir plus.</p>
+      </div>
+
+      <div class="panel reveal">
+        <h2>Visites</h2>
+        <p>Vous êtes le visiteur numéro <strong id="visitCount">0</strong>.</p>
+      </div>
+
+      <div class="panel reveal">
+        <h2>Contact rapide</h2>
+        <p><a href="contact.html" class="btn small">Me contacter</a></p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

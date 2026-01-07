@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CV Gamifié — Baptiste Chevrin</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Baptiste Chevrin</a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="about.html" class="nav-link">À propos</a>
+        <a href="projects.html" class="nav-link">Projets</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <button id="themeToggle" aria-label="Basculer thème">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel reveal">
+      <h1>CV Gamifié</h1>
+      <p>Répondez à ces 4 questions simples pour débloquer des badges.</p>
+    </section>
+
+    <section class="panel reveal">
+      <div id="quiz">
+        <div id="qbox" style="font-weight:600;margin-bottom:12px"></div>
+        <div id="opts" style="display:flex;flex-wrap:wrap;gap:10px"></div>
+
+        <div id="liveBadges" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <strong style="margin-right:8px;color:var(--muted)">Badges :</strong>
+          <div id="liveBadgesList" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:8px;align-items:center">
+          <button id="prev" class="btn ghost" disabled>Précédent</button>
+          <button id="next" class="btn ghost" disabled>Suivant</button>
+          <div style="flex:1"></div>
+          <button id="restart" class="btn" style="margin-left:8px">Recommencer</button>
+        </div>
+
+        <div id="result" class="hidden" style="margin-top:16px;display:none">
+          <h3>Badges débloqués</h3>
+          <div id="badges" style="margin-top:8px"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    
+  </footer>
+
+  <script>
+    (function(){
+      const questions = [
+        {q: 'Quel langage back-end j utilise souvent ?', opts:['Python','Golang','Java'], a:2, badge:'Java'},
+        {q: 'Que privilégie-je pour l interface ?', opts:['Design','Performance','Complexité'], a:0, badge:'Design'},
+        {q: 'Préférence outil de versionning ?', opts:['SVN','Git','Mercurial'], a:1, badge:'Git'},
+        {q: 'Travail préféré ?', opts:['Équipe','Solo','Freelance'], a:0, badge:'Team Player'}
+      ];
+
+      const qbox = document.getElementById('qbox');
+      const opts = document.getElementById('opts');
+      const next = document.getElementById('next');
+      const prev = document.getElementById('prev');
+      const restart = document.getElementById('restart');
+      const result = document.getElementById('result');
+      const badgesEl = document.getElementById('badges');
+      const liveBadgesList = document.getElementById('liveBadgesList');
+
+      let idx = 0;
+      const selections = Array(questions.length).fill(null);
+      // persisted badges
+      const persistedBadges = new Set(JSON.parse(localStorage.getItem('unlockedBadges')||'[]'));
+
+      function renderLiveBadges(){
+        liveBadgesList.innerHTML = '';
+        Array.from(persistedBadges).forEach(b=>{
+          const s = document.createElement('span'); s.className='badge'; s.textContent = b; liveBadgesList.appendChild(s);
+        });
+      }
+
+      function render(){
+        result.classList.add('hidden'); result.style.display = 'none'; qbox.textContent=''; opts.innerHTML='';
+        const qs = questions[idx];
+        qbox.textContent = `${idx+1}. ${qs.q}`;
+        qs.opts.forEach((o,oi)=>{
+          const i = idx;
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'btn'; b.textContent = o; b.style.minWidth = '120px';
+          b.disabled = false;
+          if(selections[i] !== null){
+            if(selections[i] === oi){ b.style.boxShadow = '0 12px 30px rgba(0,0,0,0.12)'; }
+          }
+          b.addEventListener('click', ()=> select(i, oi, b));
+          opts.appendChild(b);
+        });
+        // update nav
+        prev.disabled = idx === 0;
+        next.disabled = selections[idx] === null;
+      }
+
+      function select(i, choice, btn){
+        selections[i] = choice;
+        Array.from(opts.children).forEach(c=>{ c.disabled = true; c.style.opacity = '0.85'; c.style.boxShadow = 'none'; });
+        btn.disabled = true;
+        btn.style.boxShadow = '0 18px 40px rgba(0,0,0,0.18)';
+        btn.style.transform = 'translateY(-3px)';
+        next.disabled = false;
+
+        // if correct, add badge immediately (and persist)
+        if(choice === questions[i].a){
+          const badge = questions[i].badge;
+          if(!persistedBadges.has(badge)){
+            persistedBadges.add(badge);
+            localStorage.setItem('unlockedBadges', JSON.stringify(Array.from(persistedBadges)));
+            renderLiveBadges();
+            // small visual highlight
+            btn.animate([{transform:'translateY(-3px) scale(1)'},{transform:'translateY(-6px) scale(1.06)'}],{duration:220,fill:'forwards'});
+          }
+        }
+      }
+
+      next.addEventListener('click', ()=>{
+        if(idx < questions.length - 1){ idx++; render(); }
+        else showResult();
+      });
+
+      prev.addEventListener('click', ()=>{
+        if(idx > 0){ idx--; render(); }
+      });
+
+      restart.addEventListener('click', ()=>{ idx=0; for(let i=0;i<selections.length;i++) selections[i]=null; badgesEl.innerHTML=''; render(); });
+
+      function showResult(){
+        qbox.innerHTML=''; opts.innerHTML=''; result.classList.remove('hidden'); result.style.display = 'block'; badgesEl.innerHTML='';
+        const unlocked = [];
+        selections.forEach((sel, i)=>{ if(sel === questions[i].a) unlocked.push(questions[i].badge); });
+        // merge with persisted badges so result shows full set
+        const all = Array.from(new Set([...persistedBadges, ...unlocked]));
+        if(all.length===0) badgesEl.textContent='Aucun badge débloqué.';
+        else all.forEach(b=>{ const s=document.createElement('span'); s.className='badge'; s.textContent=b; badgesEl.appendChild(s); });
+        // make sure result is visible to the user
+        setTimeout(()=>{ result.scrollIntoView({behavior:'smooth',block:'center'}); }, 80);
+      }
+
+      // init
+      document.getElementById('year').textContent = new Date().getFullYear();
+      renderLiveBadges();
+      render();
+    })();
+  </script>
+  <script src="script.js" defer></script>
+</body>
+</html>

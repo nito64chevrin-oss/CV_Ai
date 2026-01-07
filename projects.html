@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Projets — Baptiste CHEVRIN</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">Baptiste Chevrin</a>
+      <nav class="nav">
+        <a href="index.html" class="nav-link">Accueil</a>
+        <a href="about.html" class="nav-link">À propos</a>
+        <a href="projects.html" class="nav-link">Projets</a>
+        <a href="cv_gamified.html" class="nav-link">CV gamifié</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <button id="themeToggle" aria-label="Basculer thème">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel reveal">
+      <h1>Projets</h1>
+    </section>
+
+    <section class="panel reveal">
+      <div class="filters">
+        <button class="filter active" data-filter="all">Tous</button>
+        <button class="filter" data-filter="web">Web</button>
+        <button class="filter" data-filter="golang">Golang</button>
+        <button class="filter" data-filter="java">Java</button>
+      </div>
+
+      <div class="carousel">
+        <button class="carousel-btn prev" aria-label="Précédent">‹</button>
+        <div class="carousel-track">
+          <article class="project card" data-category="web">
+            <a href="https://github.com/nito64chevrin-oss/Groupie-Tracker"><img src="groupie.png" alt="Projet 1 image"></a>
+            <h3>Site avec API</h3>
+            <p>Site de musique avec l'utilisation d'API - 2025-2026</p>
+          </article>
+          <article class="project card" data-category="golang">
+            <a href="https://ytrack.learn.ynov.com/git/oraphael/Projet-RED" ><img src="projet_red.png" alt="Projet 2 image"></a>
+            <h3>Projet RED - Oublie pas</h3>
+            <p>Mini Jeu en CLI en Golang - Septembre 2025</p>
+          </article>
+          <article class="project card" data-category="java">
+            <a href=https://github.com/Antho-3387/Bar---cocktail-JAVAFX"><img src="java.png" alt="Projet Java image"></a>
+            <h3>Simulation Java</h3>
+            <p>Simulation de Bar en Java et JavaFX - Décembre 2025</p>
+          </article>
+        </div>
+        <button class="carousel-btn next" aria-label="Suivant">›</button>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+    
+    </footer>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
